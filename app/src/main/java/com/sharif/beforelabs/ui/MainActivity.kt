@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     private val appsInstalledHelpe =
         AppsInstalledHelpe()
 
+    private lateinit var selectedAppName: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,10 +29,11 @@ class MainActivity : AppCompatActivity() {
         }
         packageListAdapter.submitList(appsInstalledHelpe.readInstalledApps(this))
 
-        packageListAdapter.onItemClickListener = { packageName, position ->
+        packageListAdapter.onItemClickListener = { packageName, appName ->
             Log.d("TAG", "package $packageName")
             //package:com.example.myapplication
             uninstallPackageWithResult(packageName)
+            selectedAppName = appName
         }
 
     }
@@ -40,8 +43,9 @@ class MainActivity : AppCompatActivity() {
      * Starting with API 25, calling ACTION_INSTALL_PACKAGE will require the signature level REQUEST_INSTALL_PACKAGES permission.
      * Likewise, starting with API 28 (Android P), calling ACTION_UNINSTALL_PACKAGE will require the non-dangerous REQUEST_DELETE_PACKAGES permission.
      * At least according to the docs.
-     * 
+     *
      * @param packageName The package to be uninstalled.
+     * @param appName The name of the app.
      */
     private fun uninstallPackageWithResult(packageName: String){
         val intent = Intent(Intent.ACTION_DELETE).apply {
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     packageListAdapter.submitList(appsInstalledHelpe.readInstalledApps(this))
-                    Toast.makeText(this, "App successfully Uninstalled.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$selectedAppName uninstalled", Toast.LENGTH_SHORT).show()
                     Log.d("TAG", "onActivityResult: user accepted the (un)install")
                 }
                 Activity.RESULT_CANCELED -> {

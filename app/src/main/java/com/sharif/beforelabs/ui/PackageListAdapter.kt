@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sharif.beforelabs.R
 
 
-class PackageListAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffCallbackCategory()) {
+class PackageListAdapter : ListAdapter<Pair<String, String>, RecyclerView.ViewHolder>(DiffCallbackCategory()) {
 
-    var onItemClickListener: ((String, Int) -> Unit)? = null
+    var onItemClickListener: ((String, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CategoryViewHolder(
@@ -32,25 +32,25 @@ class PackageListAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DiffCall
 
         init {
             itemView.setOnClickListener {
-                onItemClickListener?.invoke(getItem(adapterPosition), adapterPosition)
+                onItemClickListener?.invoke(getItem(adapterPosition).first, getItem(adapterPosition).second)
             }
         }
 
-        fun bind(appPackageName: String) {
-            (itemView as TextView).text = appPackageName
+        fun bind(appPackageName: Pair<String, String>) {
+            (itemView as TextView).text = appPackageName.first
         }
     }
 }
 
 
-class DiffCallbackCategory : DiffUtil.ItemCallback<String>() {
+class DiffCallbackCategory : DiffUtil.ItemCallback<Pair<String, String>>() {
 
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
+    override fun areItemsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean {
+        return oldItem.first == newItem.first
     }
 
     @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+    override fun areContentsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean {
         return oldItem == newItem
     }
 }
