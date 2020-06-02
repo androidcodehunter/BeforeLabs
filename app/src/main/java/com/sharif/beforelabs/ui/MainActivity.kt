@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.sharif.beforelabs.AppsInstalledHelpe
+import com.sharif.beforelabs.utils.AppsInstalledHelpe
 import com.sharif.beforelabs.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,12 +15,12 @@ const val UNINSTALL_REQUEST_CODE = 101
 
 class MainActivity : AppCompatActivity() {
     private val packageListAdapter = PackageListAdapter()
-    private val appsInstalledHelpe = AppsInstalledHelpe()
+    private val appsInstalledHelpe =
+        AppsInstalledHelpe()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         list.apply {
             adapter = packageListAdapter

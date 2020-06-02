@@ -1,4 +1,4 @@
-package com.sharif.beforelabs
+package com.sharif.beforelabs.utils
 
 import android.content.Context
 import android.content.Intent

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <receiver
-            android:name=".AppInfoBroadCastReceiver"
+            android:name=".receiver.AppInfoBroadCastReceiver"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
