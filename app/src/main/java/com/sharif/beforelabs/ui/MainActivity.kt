@@ -37,7 +37,10 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Uninstall provided package name through activity result. Grab the success message in ActivityResult
-     *
+     * Starting with API 25, calling ACTION_INSTALL_PACKAGE will require the signature level REQUEST_INSTALL_PACKAGES permission.
+     * Likewise, starting with API 28 (Android P), calling ACTION_UNINSTALL_PACKAGE will require the non-dangerous REQUEST_DELETE_PACKAGES permission.
+     * At least according to the docs.
+     * 
      * @param packageName The package to be uninstalled.
      */
     private fun uninstallPackageWithResult(packageName: String){
